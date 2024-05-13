@@ -11,23 +11,23 @@ export const sendToken = (user, statusCode, res) => {
   });
 };
 
-export const registerController = async (req, res) => {
+export const registerController = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
     //exisitng user
     const exisitingEmail = await userModel.findOne({ email });
     if (exisitingEmail) {
-      return next(new errorResponse("This Email is already registered", 500));
+      return next(new errorResponse("Email is already registered", 500));
     }
     const user = await userModel.create({ username, email, password });
-    this.sendToken(user, 201, res);
+    sendToken(user, 201, res);
   } catch (error) {
     console.log(error);
     next(error);
   }
 };
 
-export const loginController = async (req, res) => {
+export const loginController = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     //validation
@@ -43,7 +43,7 @@ export const loginController = async (req, res) => {
       return next(new errorResponse("Invalid Password", 401));
     }
     //res
-    this.sendToken(user, 200, res);
+    sendToken(user, 200, res);
   } catch (error) {
     console.log(error);
     next(error);

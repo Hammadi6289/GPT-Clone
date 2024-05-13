@@ -10,6 +10,7 @@ import { createTheme } from "@mui/material/styles";
 import { Toaster } from "react-hot-toast";
 import { themeSettings } from "./theme";
 import Summary from "./pages/Summary";
+import JsConverter from "./pages/JsConverter";
 
 function App() {
   const theme = useMemo(() => createTheme(themeSettings()), []);
@@ -19,11 +20,13 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Navbar />
+        <Toaster />
         <Routes>
           <Route path="/" element={<Homepage />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/summary" element={<Summary />} />
+          <Route path="/js-converter" element={<JsConverter />} />
         </Routes>
       </ThemeProvider>
     </>
